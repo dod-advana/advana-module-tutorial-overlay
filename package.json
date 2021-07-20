@@ -54,7 +54,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --passWithNoTests",
     "eject": "react-scripts eject",
     "publish:local": "npm publish --registry http://localhost:4873/",
     "publish:aws": "npm publish --registry http://10.194.9.122",
