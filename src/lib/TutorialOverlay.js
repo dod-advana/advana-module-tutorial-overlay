@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import Joyride from 'react-joyride';
 import { useMatomo } from '@datapunt/matomo-tracker-react';
 
-
 const tutorialStyle = {
 	buttonNext: {
 		backgroundColor: '#00838F',
@@ -27,9 +26,13 @@ const tutorialStyle = {
 		zIndex: 99999999,
 	},
 	buttonClose: {
-		backgroundColor: '#F5F5F5',
+		backgroundColor: 'transparent',
 		outline: 'none',
-		borderRadius: '5px',
+		borderRadius: '4px',
+		padding: '13px',
+		right: '15px',
+		top: '15px',
+		border: '1px solid #b0b9be',
 	},
 	buttonSkip: {
 		color: '#8091A5',
@@ -51,7 +54,7 @@ const tutorialStyle = {
 		fontFamily: 'Montserrat',
 		fontWeight: 700,
 		textAlign: 'left',
-		margin: '2% 0 1% 2%'
+		margin: '2% 45px 1% 2%'
 	},
 	tooltipContent: {
 		textAlign: 'left'
@@ -61,7 +64,7 @@ const tutorialStyle = {
 	}
 };
 
-export default ({ tutorialJoyrideSteps, showTutorial, setShowTutorial, buttonColor, resetPage, stepIndex, setStepIndex }) => {
+export default ({ tutorialJoyrideSteps, showTutorial, setShowTutorial, buttonColor, resetPage, stepIndex, setStepIndex, showSkipButton=true }) => {
 
 	const [restartJoyride, setRestartJoyride] = useState(false);
 	const [disableScroll, setDisableScroll] = useState(false);
@@ -182,7 +185,7 @@ export default ({ tutorialJoyrideSteps, showTutorial, setShowTutorial, buttonCol
 				spotlightClicks={true}
 				scrollOffset={150}
 				continuous={true}
-				showSkipButton={true}
+				showSkipButton={showSkipButton}
 				styles={{
 					...tutorialStyle,
 					buttonNext: {
