@@ -2,13 +2,23 @@ import TutorialOverlayAPI from "./api/TutorialOverlay";
 
 const tutorialOverlayAPI = new TutorialOverlayAPI();
 
-export async function initializeTutorial(appName) {
-	const data = await tutorialOverlayAPI.tutorialOverlaysGET('/api/tutorialOverlay');
+export async function initializeTutorial(appName, localTutData, localVersionData) {
+	let data;
+	if (localTutData) {
+		data = { data: localTutData };
+	} else {
+		data = await tutorialOverlayAPI.tutorialOverlaysGET('/api/tutorialOverlay');
+	}
 	const tutorialData = tutorialOverlayAPI.setupTutorialOverlay(data.data);
 	const appTutorialData = tutorialData[appName];
-	
-	if (appTutorialData && !sessionStorage.getItem('userVersionChecked_' + appName)){ // TODO: per app. when do we set this? 
-		const versionData = await tutorialOverlayAPI.postUserAppVersion(appName);
+
+	if (appTutorialData && !sessionStorage.getItem('userVersionChecked_' + appName)){ // TODO: per app. when do we set this?
+		let versionData;
+		if (localVersionData) {
+			versionData = { data: localVersionData };
+		} else {
+			versionData = await tutorialOverlayAPI.postUserAppVersion(appName);
+		}
 		return checkUserAppVersion(appTutorialData, versionData);
 	}
 }

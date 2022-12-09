@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import _ from 'underscore';
 
 import TutorialOverlay from './TutorialOverlay';
@@ -10,7 +11,10 @@ export default function TutorialOverlayWrapper({
 	name,
 	onComponentStepNumberChange = noop,
 	showTutorial,
-	setShowTutorial
+	setShowTutorial,
+	tutorialData,
+	localVersionData,
+	userId = ''
 }) {
 
 	const [tutorialJoyrideSteps, setTutorialJoyrideSteps] = useState([]);
@@ -30,7 +34,7 @@ export default function TutorialOverlayWrapper({
 	useEffect(() => {
 		(async () => {
 			try {
-				let tutorial = await initializeTutorial(name);
+				const tutorial = await initializeTutorial(name, tutorialData, localVersionData);
 				const { componentStepNumbers, tutorialJoyrideSteps, showTutorial } = tutorial || {};
 				onComponentStepNumberChange(componentStepNumbers)
 				setTutorialJoyrideSteps(tutorialJoyrideSteps);
@@ -42,6 +46,8 @@ export default function TutorialOverlayWrapper({
 	}, [setShowTutorialFn, name, onComponentStepNumberChange]);
 
 	return <TutorialOverlay
+		userId={userId}
+		tutorialAppName={name}
 		tutorialJoyrideSteps={tutorialJoyrideSteps}
 		setShowTutorial={setShowTutorialFn}
 		showTutorial={showTutorialState}
@@ -50,4 +56,17 @@ export default function TutorialOverlayWrapper({
 		stepIndex={stepIndex}
 		setStepIndex={setStepIndex}
 	/>
+}
+
+TutorialOverlayWrapper.propTypes = {
+	tutorialData: PropTypes.shape({
+		componentStepNumbers: PropTypes.any.isRequired,
+		tutorialJoyrideSteps: PropTypes.any.isRequired,
+		showTutorial: PropTypes.any.isRequired
+	}),
+	localVersionData: PropTypes.shape({
+		newUser: PropTypes.bool,
+		currentVersion: PropTypes.bool,
+		message: PropTypes.string,
+	})
 }

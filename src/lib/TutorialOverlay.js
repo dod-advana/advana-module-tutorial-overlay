@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import Joyride from 'react-joyride';
 import { useMatomo } from '@datapunt/matomo-tracker-react';
 
+import DismissTutorialAPI from "./api/DismissTutorial";
+const dismissTutorialAPI = new DismissTutorialAPI();
+
 const tutorialStyle = {
 	buttonNext: {
 		backgroundColor: '#00838F',
@@ -26,13 +29,9 @@ const tutorialStyle = {
 		zIndex: 99999999,
 	},
 	buttonClose: {
-		backgroundColor: 'transparent',
+		backgroundColor: '#F5F5F5',
 		outline: 'none',
-		borderRadius: '4px',
-		padding: '13px',
-		right: '15px',
-		top: '15px',
-		border: '1px solid #b0b9be',
+		borderRadius: '5px',
 	},
 	buttonSkip: {
 		color: '#8091A5',

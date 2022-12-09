@@ -1,6 +1,6 @@
 {
   "name": "@dod-advana/advana-tutorial-overlay",
-  "version": "0.0.9",
+  "version": "0.2.4",
   "private": false,
   "babel": {
     "presets": [
@@ -26,39 +26,71 @@
     ]
   },
   "dependencies": {
-    "@babel/plugin-proposal-class-properties": "^7.13.0",
-    "@babel/plugin-syntax-class-properties": "^7.12.13",
-    "@datapunt/matomo-tracker-react": "^0.5.1",
-    "@material-ui/core": "^4.11.4",
-    "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^12.1.10",
-    "axios": "^0.21.1",
-    "material-ui": "^0.20.2",
-    "react-joyride": "^2.3.0",
-    "underscore": "^1.13.1",
-    "uuid": "^8.3.2"
+    "@babel/plugin-proposal-class-properties": "7.13.0",
+    "@babel/plugin-syntax-class-properties": "7.12.13",
+    "@datapunt/matomo-tracker-react": "0.4.0",
+    "@material-ui/core": "4.11.4",
+    "axios": "0.24.0",
+    "react-joyride": "2.3.0",
+    "underscore": "1.13.1",
+    "uuid": "8.3.2"
   },
   "peerDependencies": {
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react": "17.0.2",
+    "react-dom": "17.0.2"
   },
   "devDependencies": {
-    "@babel/cli": "^7.13.16",
-    "@babel/preset-env": "^7.14.0",
-    "@babel/preset-react": "^7.13.13",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-scripts": "^4.0.3"
+    "@babel/cli": "7.13.16",
+    "@babel/preset-env": "7.14.0",
+    "@babel/preset-react": "7.13.13",
+    "@testing-library/jest-dom": "5.14.1",
+    "@testing-library/react": "12.0.0",
+    "@testing-library/user-event": "12.1.10",
+    "jest": "27.0.6",
+    "jest-environment-jsdom": "27.0",
+    "jest-sonar-reporter": "2.0.0",
+    "msw": "0.30.0",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "react-scripts": "5.0.1",
+    "react-select-event": "5.3.0",
+    "regenerator-runtime": "0.13.7",
+    "sonarqube-scanner": "2.8.1"
+  },
+  "resolutions": {
+    "@babel/preset-env": "7.16.4",
+    "ansi-html": "0.0.9",
+    "ansi-regex": "5.0.1",
+    "browserslist": "4.17.3",
+    "glob-parent": "5.1.2",
+    "immer": "9.0.6",
+    "node-forge": "1.0.0",
+    "nth-check": "2.0.1",
+    "shell-quote": "1.7.3",
+    "tar": "6.1.11"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --passWithNoTests",
+    "test": "jest --coverage --coverageDirectory=test/coverage --detectOpenHandles --passWithNoTests",
     "eject": "react-scripts eject",
     "publish:local": "npm publish --registry http://localhost:4873/",
     "publish:aws": "npm publish --registry http://10.194.9.122",
-    "publish:prepare": "rm -rf dist && mkdir dist && npx babel src/lib -d dist --copy-files"
+    "publish:prepare": "rm -rf dist && mkdir dist && babel src/lib -d dist --copy-files",
+    "sonarscan": "sonar-scanner"
+  },
+  "jest": {
+    "testResultsProcessor": "jest-sonar-reporter",
+    "moduleNameMapper": {
+      "\\.(css|less)$": "identity-obj-proxy",
+      "typeface-noto-sans": "identity-obj-proxy",
+      "typeface-montserrat": "identity-obj-proxy"
+    }
+  },
+  "jestSonar": {
+    "reportPath": "test/reports",
+    "reportFile": "test-report.xml",
+    "indent": 4
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"

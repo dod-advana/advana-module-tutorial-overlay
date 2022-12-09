@@ -16,6 +16,7 @@ export default class TutorialOverlayAPI {
 		this.axios = axios.create({
 			baseURL: window?.__env__?.REACT_APP_TUTORIAL_HREF || process.env.REACT_APP_TUTORIAL_HREF,
 			httpsAgent: new https.Agent({ keepAlive: true, rejectUnauthorized: false }),
+			withCredentials: true
 		});
 	}
 
